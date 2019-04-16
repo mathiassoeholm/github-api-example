@@ -2,13 +2,15 @@
   "name": "saga-unit-tests",
   "version": "0.1.0",
   "description": "Unit test examples for Redux Saga",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
+    "start": "tsc & node dist/index.js",
     "test": "jest"
   },
   "author": "Mathias Soeholm",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "immer": "^2.1.5",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
