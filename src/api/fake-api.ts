@@ -1,8 +1,8 @@
 import {Api} from './api-types'
 
-type fakeApiFactory = (fail: boolean, viewerName: string) => Api
+type fakeApiFactory = (viewerName?: string) => Api
 
-const makeFakeApi: fakeApiFactory  = (fail, viewerName) => ({
+const makeFakeApi: fakeApiFactory  = (viewerName) => ({
   fetchInfo: async () => ({
     data: {
       viewer: {
