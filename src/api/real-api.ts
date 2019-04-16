@@ -14,7 +14,7 @@ const fetchInfoQuery = `
 const makeRealApi: realApiFactory = accessToken => {
 
   const githubRequest = axios.create({
-    url: 'https://api.github.com/graphql',
+    baseURL: 'https://api.github.com/graphql',
     headers: { Authorization: `bearer ${accessToken}` },
   })
 
