@@ -1,0 +1,24 @@
+{
+  "name": "saga-unit-tests",
+  "version": "0.1.0",
+  "description": "Unit test examples for Redux Saga",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Mathias Soeholm",
+  "license": "ISC",
+  "dependencies": {
+    "immer": "^2.1.5",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2",
+    "typesafe-actions": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "jest": "^24.7.1",
+    "redux-saga-test-plan": "^3.7.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.3"
+  }
+}
