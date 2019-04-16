@@ -1,8 +1,16 @@
 import {Api} from './api/api-types'
-import {call, put} from 'redux-saga/effects';
-import {fetchFailed, setViewerName} from './github-actions'
+import {call, put, all, fork, take} from 'redux-saga/effects';
+import {fetchFailed, GithubActionType, setViewerName} from './github-actions'
 
 export function* fetchInfoSaga(api: Api) {
+  while (true) {
+    yield fetchInfoSagaAux(api)
+  }
+}
+
+export function* fetchInfoSagaAux(api: Api) {
+  yield take(GithubActionType.FETCH_INFO)
+
   let response;
 
   try {
@@ -14,4 +22,10 @@ export function* fetchInfoSaga(api: Api) {
   }
 
   yield put(setViewerName(response.data.viewer.name))
+}
+
+export default function* root (api: Api) {
+  yield all([
+    fork(fetchInfoSaga, api),
+  ]);
 }
