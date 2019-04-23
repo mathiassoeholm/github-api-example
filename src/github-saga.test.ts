@@ -1,21 +1,29 @@
-import { expectSaga } from 'redux-saga-test-plan';
+import {expectSaga, testSaga} from 'redux-saga-test-plan';
 import * as matchers from 'redux-saga-test-plan/matchers';
 import { throwError } from 'redux-saga-test-plan/providers';
 import makeFakeApi from './api/fake-api'
 import {fetchInfoSagaAux} from './github-saga'
-import {fetchFailed, GithubActionType, setViewerName} from './github-actions'
+import * as GithubActions from './github-actions'
 
-test('fetchInfoSaga success', () => {
+
+
+it('waits for fetch info action', () => {
+  testSaga(fetchInfoSagaAux, makeFakeApi())
+    .next()
+    .take(GithubActions.GithubActionType.FETCH_INFO)
+})
+
+it('sets the viewer name', () => {
   const fakeApi = makeFakeApi('Bob');
 
   return expectSaga(fetchInfoSagaAux, fakeApi)
-    .take(GithubActionType.FETCH_INFO)
+    .dispatch(GithubActions.fetchInfo())
     .call(fakeApi.fetchInfo)
-    .put(setViewerName('Bob'))
+    .put(GithubActions.setViewerName('Bob'))
     .run()
 })
 
-test('fetchInfoSaga fail', () => {
+it('puts fetch failed', () => {
   const error = new Error('error');
   const fakeApi = makeFakeApi();
 
@@ -23,6 +31,7 @@ test('fetchInfoSaga fail', () => {
     .provide([
       [matchers.call.fn(fakeApi.fetchInfo), throwError(error)],
     ])
-    .put(fetchFailed(error))
+    .dispatch(GithubActions.fetchInfo())
+    .put(GithubActions.fetchFailed(error))
     .run()
 })
