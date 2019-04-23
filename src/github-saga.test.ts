@@ -5,8 +5,6 @@ import makeFakeApi from './api/fake-api'
 import {fetchInfoSagaAux} from './github-saga'
 import * as GithubActions from './github-actions'
 
-
-
 it('waits for fetch info action', () => {
   testSaga(fetchInfoSagaAux, makeFakeApi())
     .next()

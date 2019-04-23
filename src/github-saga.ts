@@ -2,7 +2,7 @@ import {Api} from './api/api-types'
 import {call, put, all, fork, take} from 'redux-saga/effects';
 import {fetchFailed, GithubActionType, setViewerName} from './github-actions'
 
-export function* fetchInfoSaga(api: Api) {
+function* fetchInfoSaga(api: Api) {
   while (true) {
     yield fetchInfoSagaAux(api)
   }

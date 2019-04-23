@@ -3,6 +3,8 @@ import makeApi from './api/real-api'
 import createSagaMiddleware from 'redux-saga';
 import {applyMiddleware, createStore} from 'redux'
 import githubReducer from './github-reducer'
+import githubSaga from './github-saga'
+import {fetchInfo} from './github-actions'
 
 dotenv.config()
 
@@ -14,21 +16,24 @@ const store = createStore(
   enhancer,
 )
 
-sagaMiddleware.run()
-
 const api = makeApi(process.env.GITHUB_ACCESS_TOKEN || '')
 
-const run = async () => {
-  let response;
+sagaMiddleware.run(githubSaga, api)
 
-  try {
-    response = await api.fetchInfo();
-  }
-  catch (e) {
-    console.log(e);
-  }
+console.log("State: " + JSON.stringify(store.getState()))
 
-  console.log(response.data.viewer.name)
+store.dispatch(fetchInfo())
+
+function wait() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, 4000);
+  });
 }
 
-run();
+wait().then(() => {
+  console.log("State: " + JSON.stringify(store.getState()))
+})
+
+
