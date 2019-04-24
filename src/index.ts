@@ -21,8 +21,6 @@ const api = makeApi(process.env.GITHUB_ACCESS_TOKEN || '')
 
 sagaMiddleware.run(githubSaga, api)
 
-console.log("State: " + JSON.stringify(store.getState()))
-
 store.dispatch(fetchInfo())
 
 function wait() {
