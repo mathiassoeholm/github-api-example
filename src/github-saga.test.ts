@@ -20,7 +20,6 @@ it('sets the viewer', () => {
     repositories: [{
         languages: [{
             name: 'C#',
-            color: '#FFFFFF',
             size: 30000,
           }
         ]

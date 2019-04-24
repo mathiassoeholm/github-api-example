@@ -30,7 +30,6 @@ export function* fetchInfoSagaAux(api: Api) {
     draft.repositories = viewer.repositories.edges.map((r: any) => ({
       languages: r.node.languages.edges.map((l: any) => ({
         name: l.node.name,
-        color: l.node.color,
         size: l.size,
       }))
     }))

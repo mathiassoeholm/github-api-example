@@ -15,7 +15,6 @@ const fetchInfoQuery = `
                 size
                 node {
                   name
-                  color
                 }
               }
             }

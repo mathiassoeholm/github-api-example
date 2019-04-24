@@ -13,6 +13,5 @@ export interface Repository {
 
 export interface Language {
   name: string,
-  color: string,
   size: number,
 }

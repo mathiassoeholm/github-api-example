@@ -5,6 +5,7 @@ import {applyMiddleware, createStore} from 'redux'
 import githubReducer from './github-reducer'
 import githubSaga from './github-saga'
 import {fetchInfo} from './github-actions'
+import {languageStatsSelector} from './github-selector'
 
 dotenv.config()
 
@@ -33,7 +34,7 @@ function wait() {
 }
 
 wait().then(() => {
-  console.log("State: " + JSON.stringify(store.getState()))
+  console.log("Stats: " + JSON.stringify(languageStatsSelector(store.getState())))
 })
 
 

@@ -17,7 +17,6 @@ const makeFakeApi: fakeApiFactory  = () => ({
                       size: 30000,
                       node: {
                         name: "C#",
-                        color: "#FFFFFF"
                       }
                     }
                   ]

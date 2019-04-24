@@ -17,7 +17,6 @@ test('it sets the viewer', () => {
           {
             name: 'TypeScript',
             size: 10000,
-            color: '#343434',
           }
         ]
       }
