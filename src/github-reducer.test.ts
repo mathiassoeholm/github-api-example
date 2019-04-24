@@ -1,5 +1,6 @@
 import githubReducer from './github-reducer'
 import * as githubActions from './github-actions'
+import {GithubViewer} from './github-types'
 
 test('it returns initial state', () => {
   expect(
@@ -7,12 +8,25 @@ test('it returns initial state', () => {
   ).toEqual({ })
 })
 
-test('it sets viewer name', () => {
+test('it sets the viewer', () => {
+  const viewer: GithubViewer = {
+    name: 'Carl',
+    repositories: [
+      {
+        languages: [
+          {
+            name: 'TypeScript',
+            size: 10000,
+            color: '#343434',
+          }
+        ]
+      }
+    ]
+  }
+
   expect(
-    githubReducer(undefined, githubActions.setViewerName('Bob'))
+    githubReducer(undefined, githubActions.setViewer(viewer))
   ).toEqual({
-    viewer: {
-      name: 'Bob',
-    }
+    viewer
   })
 })

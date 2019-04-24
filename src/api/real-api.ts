@@ -4,9 +4,24 @@ import axios from 'axios';
 type realApiFactory = (accessToken: string) => Api
 
 const fetchInfoQuery = `
-  query { 
-    viewer { 
+  query {
+    viewer {
       name
+      repositories(isFork: false, first: 100) {
+        edges {
+          node {
+            languages(first: 100) {
+              edges {
+                size
+                node {
+                  name
+                  color
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `

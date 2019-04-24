@@ -1,12 +1,31 @@
 import {Api} from './api-types'
 
-type fakeApiFactory = (viewerName?: string) => Api
+type fakeApiFactory = () => Api
 
-const makeFakeApi: fakeApiFactory  = (viewerName) => ({
+const makeFakeApi: fakeApiFactory  = () => ({
   fetchInfo: async () => ({
     data: {
       viewer: {
-        name: viewerName,
+        name: 'Bob',
+        repositories: {
+          edges: [
+            {
+              node: {
+                languages: {
+                  edges: [
+                    {
+                      size: 30000,
+                      node: {
+                        name: "C#",
+                        color: "#FFFFFF"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
       }
     }
   })

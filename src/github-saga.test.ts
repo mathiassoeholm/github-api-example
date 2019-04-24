@@ -4,6 +4,7 @@ import { throwError } from 'redux-saga-test-plan/providers';
 import makeFakeApi from './api/fake-api'
 import {fetchInfoSagaAux} from './github-saga'
 import * as GithubActions from './github-actions'
+import {GithubViewer} from './github-types'
 
 it('waits for fetch info action', () => {
   testSaga(fetchInfoSagaAux, makeFakeApi())
@@ -11,13 +12,26 @@ it('waits for fetch info action', () => {
     .take(GithubActions.GithubActionType.FETCH_INFO)
 })
 
-it('sets the viewer name', () => {
-  const fakeApi = makeFakeApi('Bob');
+it('sets the viewer', () => {
+  const fakeApi = makeFakeApi();
+
+  const expectedViewer: GithubViewer = {
+    name: 'Bob',
+    repositories: [{
+        languages: [{
+            name: 'C#',
+            color: '#FFFFFF',
+            size: 30000,
+          }
+        ]
+      }
+    ]
+  }
 
   return expectSaga(fetchInfoSagaAux, fakeApi)
     .dispatch(GithubActions.fetchInfo())
     .call(fakeApi.fetchInfo)
-    .put(GithubActions.setViewerName('Bob'))
+    .put(GithubActions.setViewer(expectedViewer))
     .run()
 })
 

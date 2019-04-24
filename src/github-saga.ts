@@ -1,6 +1,8 @@
 import {Api} from './api/api-types'
 import {call, put, all, fork, take} from 'redux-saga/effects';
-import {fetchFailed, GithubActionType, setViewerName} from './github-actions'
+import {fetchFailed, GithubActionType, setViewer} from './github-actions'
+import {GithubViewer} from './github-types'
+import produce from 'immer'
 
 function* fetchInfoSaga(api: Api) {
   while (true) {
@@ -21,7 +23,20 @@ export function* fetchInfoSagaAux(api: Api) {
     return
   }
 
-  yield put(setViewerName(response.data.viewer.name))
+  const { viewer } = response.data;
+
+  const modifiedViewer = produce<GithubViewer>(viewer, draft => {
+    draft.name = viewer.name
+    draft.repositories = viewer.repositories.edges.map((r: any) => ({
+      languages: r.node.languages.edges.map((l: any) => ({
+        name: l.node.name,
+        color: l.node.color,
+        size: l.size,
+      }))
+    }))
+  })
+
+  yield put(setViewer(modifiedViewer))
 }
 
 export default function* root (api: Api) {
